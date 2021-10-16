@@ -1,0 +1,1 @@
+gc C:\Data\Git\dlphx-demo\listora.txt
