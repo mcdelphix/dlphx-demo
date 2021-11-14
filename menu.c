@@ -164,7 +164,9 @@ void process_option_b()
 void process_option_c()
 {
    system("clear");
-   printf("You have selected option C\n");
+   printf("You have selected option C - connecting as root \n");
+   printf("ssh centos@10.0.1.20");  
+   printf("sudo su -");
    printf("Enter to return to main menu\n");
    getchar();
 }
@@ -188,7 +190,7 @@ void process_option_e()
 void process_option_f()
 {
    system("clear");
-   printf("You have selected option D\n");
+   printf("You have selected option F\n");
    printf("Enter to return to main menu\n");
    getchar();
 }
@@ -196,7 +198,15 @@ void process_option_f()
 void process_option_g()
 {
    system("clear");
-   printf("You have selected option E\n");
+   printf("You have selected option G\n");
+   printf("Enter to return to main menu\n");
+   getchar();
+}
+
+void process_option_h()
+{
+   system("clear");
+   printf("You have selected option H\n");
    printf("Enter to return to main menu\n");
    getchar();
 }
@@ -206,15 +216,16 @@ void list_menu_options()
    system("clear");
    printf("\nMenu Options\n");
    printf("------------------------------------------------------\n");
-   printf("a: Option A - create scripts\n");
+   printf("a: Option A - create scripts \n");
    printf("b: Option B - run remote commands \n");
-   printf("c: Option C\n");   
+   printf("c: Option C - connecting as root \n");   
    printf("d: Option D\n");
    printf("e: Option E\n");
    printf("f: Option F\n");
    printf("g: Option G\n");   
+   printf("h: Option H\n");      
    printf("z: Save and quit\n");
-   printf("\n\nPlease enter a choice (a, b, c, d, e, f, g, or z) ---> ");
+   printf("\n\nPlease enter a choice (a, b, c, d, e, f, g, h, or z) ---> ");
 }
 
 void process_menu()
