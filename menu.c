@@ -19,7 +19,7 @@ done\n\
 
 #define SHELLSCRIPT2 "\
 #!/bin/sh\n\n\
-export ORACLE_HOME=/home/oracle/app/oracle/product/11.2.0/dbhome_1\n\
+export ORACLE_HOME=/01/app/oracle/product/18.0.0/dbhome_1\n\
 export PATH=$ORACLE_HOME:$PATH\n\
 sqlplus / as sysdba @verifyDB.sql\n\
 "
@@ -136,13 +136,14 @@ void process_option_a()
    
    create_file("t.sh", (char *) script1);
    create_file("x.sh", SHELLSCRIPT3);
-   create_file("y.sh", SHELLSCRIPT2);
+   create_file("count.sh", SHELLSCRIPT1);
+   create_file("verifyDB.sh", SHELLSCRIPT2);
    create_file("orainfo.sql", SHELLSCRIPT4);
 
    printf("Hello world\n");
 
    system("id");
-   system("/bin/bash /root/c/x.sh");
+   system("/bin/bash /home/delphix/count.sh");
 
    printf("Enter to return to main menu\n");
    getchar();
