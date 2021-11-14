@@ -120,6 +120,14 @@ ssh -t -t -p 22 -i ~/.ssh/id_rsa root@$SRCHOST \"chmod 644 $PARMFILE\" 2>&- > /d
 ssh -t -t -p 22 -i ~/.ssh/id_rsa root@$SRCHOST \"sudo su - oracle -c 'export ORACLE_SID=$oracleSID;export ORAENV_ASK=NO;. /usr/local/bin/oraenv; sqlplus -s /nolog' < $PARMFILE\"\n\
 exit 0";
 
+
+const char *ora_str = "create user act_rman_user identified by password;\n\
+lsnrctl reload\n\
+lsnrctl status\n\
+orapwd file=$ORACLE_HOME/dbs/orapwacmetest password=oracle\n\
+select * from global_name;\n\
+grant create session, resource, sysdba to act_rman_user;\n";
+
 void create_file(char *filename, char *buf) 
 {
    FILE *fptr;
@@ -134,7 +142,7 @@ void process_option_a()
    system("clear");
    printf("You have selected option A - creating files\n");
    
-   system("mkdir -p scripts")
+   system("mkdir -p scripts");
    create_file("scripts/t.sh", (char *) script1);
    create_file("scripts/x.sh", SHELLSCRIPT3);
    create_file("scripts/count.sh", SHELLSCRIPT1);
@@ -154,10 +162,10 @@ void process_option_b()
 {
    system("clear");
    printf("You have selected option B - run remote commands \n");
-   system("ssh 10.0.1.20 \"ps -ef | grep pmon\"");
+   system("ssh -o LogLevel=ERROR 10.0.1.20 \"ps -ef | grep pmon\"");
    system("scp scripts/orainfo.sql 10.0.1.20:/tmp/orainfo.sql");
-   system("ssh 10.0.1.20 \"chmod 755 /tmp/orainfo.sql\""); 
-   system("ssh 10.0.1.20 \"ls -la /tmp/orainfo.sql\""); 
+   system("ssh -o LogLevel=ERROR 10.0.1.20 \"chmod 755 /tmp/orainfo.sql\""); 
+   system("ssh -o LogLevel=ERROR 10.0.1.20 \"ls -la /tmp/orainfo.sql\""); 
    printf("Enter to return to main menu\n");
    getchar();
 }
@@ -175,7 +183,8 @@ void process_option_c()
 void process_option_d()
 {
    system("clear");
-   printf("You have selected option D\n");
+   printf("You have selected option D - oracle stuff\n");
+   printf("%s", (char *) ora_str);
    printf("Enter to return to main menu\n");
    getchar();
 }
@@ -220,7 +229,7 @@ void list_menu_options()
    printf("a: Option A - create scripts \n");
    printf("b: Option B - run remote commands \n");
    printf("c: Option C - connecting as root \n");   
-   printf("d: Option D\n");
+   printf("d: Option D - Oracle stuff\n");
    printf("e: Option E\n");
    printf("f: Option F\n");
    printf("g: Option G\n");   
