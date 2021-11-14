@@ -162,9 +162,15 @@ void process_option_b()
 {
    system("clear");
    printf("You have selected option B - run remote commands \n");
-   system("ssh -o LogLevel=ERROR 10.0.1.20 \"ps -ef | grep pmon\"");
+   printf("Oracle instances running on 10.0.1.30 :\n");
+   system("ssh -o LogLevel=ERROR 10.0.1.30 \"ps -ef | grep pmon | grep -v grep\"");
+   printf("Oracle instances running on 10.0.1.20 :\n");
+   system("ssh -o LogLevel=ERROR 10.0.1.20 \"ps -ef | grep pmon | grep -v grep\"");
+   printf("Copies orainfo.sql to 10.0.1.20 :-\n");
    system("scp scripts/orainfo.sql 10.0.1.20:/tmp/orainfo.sql");
+   printf("chmod 755 orainfo.sql :-\n")
    system("ssh -o LogLevel=ERROR 10.0.1.20 \"chmod 755 /tmp/orainfo.sql\""); 
+   printf("ls -la orainfo.sql :-\n")
    system("ssh -o LogLevel=ERROR 10.0.1.20 \"ls -la /tmp/orainfo.sql\""); 
    printf("Enter to return to main menu\n");
    getchar();
@@ -174,8 +180,8 @@ void process_option_c()
 {
    system("clear");
    printf("You have selected option C - connecting as root \n");
-   printf("ssh centos@10.0.1.20");  
-   printf("sudo su -");
+   printf("ssh centos@10.0.1.20\n");  
+   printf("sudo su -\n");
    printf("Enter to return to main menu\n");
    getchar();
 }
