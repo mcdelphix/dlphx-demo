@@ -168,9 +168,9 @@ void process_option_b()
    system("ssh -o LogLevel=ERROR 10.0.1.20 \"ps -ef | grep pmon | grep -v grep\"");
    printf("Copies orainfo.sql to 10.0.1.20 :-\n");
    system("scp scripts/orainfo.sql 10.0.1.20:/tmp/orainfo.sql");
-   printf("chmod 755 orainfo.sql :-\n")
+   printf("chmod 755 orainfo.sql :-\n");
    system("ssh -o LogLevel=ERROR 10.0.1.20 \"chmod 755 /tmp/orainfo.sql\""); 
-   printf("ls -la orainfo.sql :-\n")
+   printf("ls -la orainfo.sql :-\n");
    system("ssh -o LogLevel=ERROR 10.0.1.20 \"ls -la /tmp/orainfo.sql\""); 
    printf("Enter to return to main menu\n");
    getchar();
