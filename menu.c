@@ -134,16 +134,17 @@ void process_option_a()
    system("clear");
    printf("You have selected option A - creating files\n");
    
-   create_file("t.sh", (char *) script1);
-   create_file("x.sh", SHELLSCRIPT3);
-   create_file("count.sh", SHELLSCRIPT1);
-   create_file("verifyDB.sh", SHELLSCRIPT2);
-   create_file("orainfo.sql", SHELLSCRIPT4);
+   system("mkdir -p scripts")
+   create_file("scripts/t.sh", (char *) script1);
+   create_file("scripts/x.sh", SHELLSCRIPT3);
+   create_file("scripts/count.sh", SHELLSCRIPT1);
+   create_file("scripts/verifyDB.sh", SHELLSCRIPT2);
+   create_file("scripts/orainfo.sql", SHELLSCRIPT4);
 
    printf("Hello world\n");
 
    system("id");
-   system("/bin/bash /home/delphix/count.sh");
+   system("/bin/bash /home/delphix/scripts/count.sh");
 
    printf("Enter to return to main menu\n");
    getchar();
@@ -154,7 +155,7 @@ void process_option_b()
    system("clear");
    printf("You have selected option B - run remote commands \n");
    system("ssh 10.0.1.20 \"ps -ef | grep pmon\"");
-   system("scp orainfo.sql 10.0.1.20:/tmp/orainfo.sql");
+   system("scp scripts/orainfo.sql 10.0.1.20:/tmp/orainfo.sql");
    system("ssh 10.0.1.20 \"chmod 755 /tmp/orainfo.sql\""); 
    system("ssh 10.0.1.20 \"ls -la /tmp/orainfo.sql\""); 
    printf("Enter to return to main menu\n");
