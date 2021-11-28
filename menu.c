@@ -124,6 +124,8 @@ exit 0";
 const char *ora_str = "create user act_rman_user identified by password;\n\
 lsnrctl reload\n\
 lsnrctl status\n\
+source 10.0.1.20 delphix db-delphixdb , orasrc1\n\
+target 10.0.1.30 delphix db-delphixdb \n\
 orapwd file=$ORACLE_HOME/dbs/orapwacmetest password=oracle\n\
 select * from global_name;\n\
 grant create session, resource, sysdba to act_rman_user;\n";
@@ -198,7 +200,8 @@ void process_option_d()
 void process_option_e()
 {
    system("clear");
-   printf("You have selected option E\n");
+   printf("You have selected option E - connecting to Oracle source\n");
+   system("ssh 10.0.1.20")
    printf("Enter to return to main menu\n");
    getchar();
 }
@@ -206,7 +209,8 @@ void process_option_e()
 void process_option_f()
 {
    system("clear");
-   printf("You have selected option F\n");
+   printf("You have selected option F - connecting to Oracle target\n");
+   system("ssh 10.0.1.30")
    printf("Enter to return to main menu\n");
    getchar();
 }
@@ -236,8 +240,8 @@ void list_menu_options()
    printf("b: Option B - run remote commands \n");
    printf("c: Option C - connecting as root \n");   
    printf("d: Option D - Oracle stuff\n");
-   printf("e: Option E\n");
-   printf("f: Option F\n");
+   printf("e: Option E - connect to Oracle source\n");
+   printf("f: Option F - connect to Oracle target\n");
    printf("g: Option G\n");   
    printf("h: Option H\n");      
    printf("z: Save and quit\n");
