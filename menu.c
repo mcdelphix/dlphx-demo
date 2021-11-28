@@ -201,7 +201,7 @@ void process_option_e()
 {
    system("clear");
    printf("You have selected option E - connecting to Oracle source\n");
-   system("ssh 10.0.1.20")
+   system("ssh 10.0.1.20");
    printf("Enter to return to main menu\n");
    getchar();
 }
@@ -210,7 +210,7 @@ void process_option_f()
 {
    system("clear");
    printf("You have selected option F - connecting to Oracle target\n");
-   system("ssh 10.0.1.30")
+   system("ssh 10.0.1.30");
    printf("Enter to return to main menu\n");
    getchar();
 }
