@@ -218,7 +218,9 @@ void process_option_f()
 void process_option_g()
 {
    system("clear");
-   printf("You have selected option G\n");
+   printf("You have selected option G - prepare Oracle source\n");
+   system("scp scripts/verifyDB.sql 10.0.1.20:/home/delphix/verifyDB.sql");
+   system("scp scripts/orainfo.sql 10.0.1.20:/home/delphix/orainfo.sql");
    printf("Enter to return to main menu\n");
    getchar();
 }
@@ -226,7 +228,25 @@ void process_option_g()
 void process_option_h()
 {
    system("clear");
-   printf("You have selected option H\n");
+   printf("You have selected option H - prepare Oracle target\n");
+   system("scp scripts/verifyDB.sql 10.0.1.30:/home/delphix/verifyDB.sql");
+   system("scp scripts/orainfo.sql 10.0.1.30:/home/delphix/orainfo.sql");
+   printf("Enter to return to main menu\n");
+   getchar();
+}
+
+void process_option_j()
+{
+   system("clear");
+   printf("You have selected option J\n");
+   printf("Enter to return to main menu\n");
+   getchar();
+}
+
+void process_option_k()
+{
+   system("clear");
+   printf("You have selected option K\n");
    printf("Enter to return to main menu\n");
    getchar();
 }
@@ -242,8 +262,10 @@ void list_menu_options()
    printf("d: Option D - Oracle stuff\n");
    printf("e: Option E - connect to Oracle source\n");
    printf("f: Option F - connect to Oracle target\n");
-   printf("g: Option G\n");   
-   printf("h: Option H\n");      
+   printf("g: Option G - prepare Oracle source\n");
+   printf("h: Option H - prepare Oracle target\n");
+   printf("j: Option J\n");
+   printf("k: Option K\n");
    printf("z: Save and quit\n");
    printf("\n\nPlease enter a choice (a, b, c, d, e, f, g, h, or z) ---> ");
 }
