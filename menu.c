@@ -140,13 +140,15 @@ watch 'ps -ef | grep pmon | grep -v grep ; echo \"\"; echo \"\"; df -h'\n\
 /* query.sql */
 #define SHELLSCRIPT7 "\
 set pagesize 100\n\
+set linesize 140\n\
+col patient_id format 9999 heading PAT_ID\n\
 col employee_id format 9999\n\
 col first_name format a15\n\
 col last_name format a15\n\
 col firstname format a15\n\
 col lastname format a15\n\
-col address format a35\n\
-col dept_name format a28\n\
+col address format a30\n\
+col dept_name format a25\n\
 col zipcode format a10\n\
 col email format a25\n\
 col city format a15\n\
