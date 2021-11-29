@@ -212,10 +212,19 @@ commit\n\
 exit\n\
 EOF\n\
 }\n\n\
-# initTransTAB\n\
-# ins_rows\n\
-# list_rows\n\
-# cleanTransTAB\n\
+cmd=$1\n\
+if [ \"$cmd\" == \"init\" ]; then\n\
+initTransTAB\n\
+fi\n\
+if [ \"$cmd\" == \"add\" ]; then\n\
+ins_rows\n\
+fi\n\
+if [ \"$cmd\" == \"list\" ]; then\n\
+list_rows\n\
+fi\n\
+if [ \"$cmd\" == \"clean\" ]; then\n\
+cleanTransTAB\n\
+fi\n\
 "
 
 const char *script1 = "#!/bin/bash\n\n\
@@ -245,6 +254,10 @@ lsnrctl reload\n\
 lsnrctl status\n\
 source 10.0.1.20 delphix db-delphixdb , orasrc1\n\
 target 10.0.1.30 delphix db-delphixdb \n\
+source 10.0.1.20 delphix db-delphixdb , src containter: orasrc1 pluggable: orapdb1 orapdb2 \n\
+source 10.0.1.20 db creds , c##delphixdb/delphixdb , delphixdb/delphixdb \n\
+target 10.0.1.30 delphix db-delphixdb \n\
+target 10.0.1.30 orcltgt1 - orapdb1 , vpdb1 , vpdb1msk , vpdb1dev , vpdb1qa  \n\
 orapwd file=$ORACLE_HOME/dbs/orapwacmetest password=oracle\n\
 select * from global_name;\n\
 grant create session, resource, sysdba to act_rman_user;\n";
