@@ -24,7 +24,7 @@ echo \"ORACLE_SID=orasrc1 voradev1 vora1 voramsk1 voraqa1\"\n\
 export ORAENV_ASK=NO\n\
 export ORACLE_HOME=/u01/app/oracle/product/18.0.0/dbhome_1\n\
 export PATH=$PATH:$ORACLE_HOME/bin\n\
-. oraenv\n\
+# . oraenv\n\
 export ORAENV_ASK=YES\n\
 sqlplus / as sysdba @verifyDB.sql\n\
 "
@@ -137,6 +137,29 @@ exit\n\
 watch 'ps -ef | grep pmon | grep -v grep ; echo \"\"; echo \"\"; df -h'\n\
 "
 
+/* query.sql */
+#define SHELLSCRIPT7 "\
+col employee_id format 9999\n\
+col first_name format a15\n\
+col last_name format a15\n\
+col dept_name format a15\n\
+col city format a15\n\
+select employee_id, first_name, last_name, dept_name, city from employees;\n\
+exit\n\
+"
+
+/* query.sh */
+#define SHELLSCRIPT8 "\
+#!/bin/sh\n\n\
+echo \"ORACLE_SID=orasrc1 voradev1 vora1 voramsk1 voraqa1\"\n\
+export ORAENV_ASK=NO\n\
+export ORACLE_HOME=/u01/app/oracle/product/18.0.0/dbhome_1\n\
+export PATH=$PATH:$ORACLE_HOME/bin\n\
+# . oraenv\n\
+export ORAENV_ASK=YES\n\
+sqlplus delphixdb/delphixdb as sysdba @query.sql\n\
+"
+
 const char *script1 = "#!/bin/bash\n\n\
 [ $# -ne $numparms ] && usage\n\n\
 oracleSID=$1\n\
@@ -190,6 +213,8 @@ void process_option_a()
    create_file("scripts/verifyDB.sql", SHELLSCRIPT5);
    create_file("scripts/orainfo.sql", SHELLSCRIPT4);
    create_file("scripts/watch4mount.sh", SHELLSCRIPT6);
+   create_file("scripts/query.sql", SHELLSCRIPT7);
+   create_file("scripts/query.sh", SHELLSCRIPT8);
 
    printf("Hello world\n");
 
@@ -277,6 +302,9 @@ void process_option_h()
    system("scp scripts/orainfo.sql 10.0.1.30:/home/delphix/orainfo.sql");
    system("scp scripts/watch4mount.sh 10.0.1.30:/home/delphix/watch4mount.sh");
    system("ssh -o LogLevel=ERROR 10.0.1.30 \"chmod 755 /home/delphix/watch4mount.sh\"");
+   system("scp scripts/query.sql 10.0.1.30:/home/delphix/query.sql");
+   system("scp scripts/query.sh 10.0.1.30:/home/delphix/query.sh");
+   system("ssh -o LogLevel=ERROR 10.0.1.30 \"chmod 755 /home/delphix/query.sh\"");
    printf("Enter to return to main menu\n");
    getchar();
 }
