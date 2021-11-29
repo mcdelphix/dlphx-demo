@@ -167,7 +167,7 @@ sqlplus delphixdb/delphixdb @query.sql\n\
 "
 
 /* action.sh */
-#define SHELLSCRIPT9 "\
+#define SHELLSCRIPT8 "\
 #!/bin/sh\n\n\
 list_rows()\n\
 {\n\
@@ -270,7 +270,6 @@ void process_option_a()
    create_file("scripts/watch4mount.sh", SHELLSCRIPT6);
    create_file("scripts/query.sql", SHELLSCRIPT7);
    create_file("scripts/query.sh", SHELLSCRIPT8);
-   create_file("scripts/action.sh", SHELLSCRIPT9);
 
    printf("Hello world\n");
 
