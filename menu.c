@@ -143,9 +143,15 @@ set pagesize 100\n\
 col employee_id format 9999\n\
 col first_name format a15\n\
 col last_name format a15\n\
-col dept_name format a15\n\
+col firstname format a15\n\
+col lastname format a15\n\
+col address format a35\n\
+col dept_name format a28\n\
+col zipcode format a10\n\
+col email format a25\n\
 col city format a15\n\
 select employee_id, first_name, last_name, dept_name, city from employees;\n\
+select patient_id, firstname, lastname, address, city, zipcode, email from patient;\n\
 exit\n\
 "
 
