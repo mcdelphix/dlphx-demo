@@ -139,6 +139,7 @@ watch 'ps -ef | grep pmon | grep -v grep ; echo \"\"; echo \"\"; df -h'\n\
 
 /* query.sql */
 #define SHELLSCRIPT7 "\
+set pagesize 100\n\
 col employee_id format 9999\n\
 col first_name format a15\n\
 col last_name format a15\n\
