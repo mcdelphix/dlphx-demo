@@ -17,10 +17,15 @@ echo \"Count: $i\"\n\
 done\n\
 "
 
+/* verifyDB.sh */
 #define SHELLSCRIPT2 "\
 #!/bin/sh\n\n\
-export ORACLE_HOME=/01/app/oracle/product/18.0.0/dbhome_1\n\
-export PATH=$ORACLE_HOME:$PATH\n\
+echo "ORACLE_SID=orasrc1 voradev1 vora1 voramsk1 voraqa1"
+export ORAENV_ASK=NO\n\
+export ORACLE_HOME=/u01/app/oracle/product/18.0.0/dbhome_1\n\
+export PATH=$PATH:$ORACLE_HOME/bin\n\
+. oraenv\n\
+export ORAENV_ASK=YES\n\
 sqlplus / as sysdba @verifyDB.sql\n\
 "
 
@@ -43,6 +48,8 @@ select 'Status of the Running Instance:' from dual;\n\
 exit\n\
 eot\n\
 "
+
+/* orainfo.sql */
 
 #define SHELLSCRIPT4 "\
 col name format a50\n\
@@ -99,13 +106,18 @@ select 'Total System Global Area :' hd1, sum(value) sgatot, 'bytes' hd2 from  v$
 exit\n\
 "
 
+/* verifyDB.sql */
+
 #define SHELLSCRIPT5 "\
 set pagesize 100\n\
 set linesize 100\n\
 set echo off\n\
 set feedback off\n\
 set wrap on\n\
+col name format a15\n\
 col owner format a30\n\
+col restricted format a10\n\
+col open_time format a30\n\
 col tablespace_name format a15\n\
 col file_name format a75\n\
 select distinct tablespace_name, file_name from dba_data_files order by 1;\n\
@@ -113,7 +125,16 @@ select owner,count(*) from dba_tables group by owner order by 1;\n\
 select dbid, name, open_mode from v$database;\n\
 select sum(bytes)/(1024*1024*1024) \"dbSize (GB)\" from dba_data_files;\n\
 select * from v$instance;\n\
+select cdb from v$database;\n\
+select name, con_id, dbid, con_uid from v$containers;\n\
+select name, open_mode, restricted, open_time from v$pdbs;\n\
 exit\n\
+"
+
+/* watch4mount.sh */
+#define SHELLSCRIPT6 "\
+#!/bin/bash\n\n\
+watch 'ps -ef | grep pmon | grep -v grep ; echo \"\"; echo \"\"; df -h'\n\
 "
 
 const char *script1 = "#!/bin/bash\n\n\
@@ -168,6 +189,7 @@ void process_option_a()
    create_file("scripts/verifyDB.sh", SHELLSCRIPT2);
    create_file("scripts/verifyDB.sql", SHELLSCRIPT5);
    create_file("scripts/orainfo.sql", SHELLSCRIPT4);
+   create_file("scripts/watch4mount.sh", SHELLSCRIPT6);
 
    printf("Hello world\n");
 
@@ -253,6 +275,8 @@ void process_option_h()
    system("scp scripts/verifyDB.sh 10.0.1.30:/home/delphix/verifyDB.sh");
    system("ssh -o LogLevel=ERROR 10.0.1.30 \"chmod 755 /home/delphix/verifyDB.sh\"");
    system("scp scripts/orainfo.sql 10.0.1.30:/home/delphix/orainfo.sql");
+   system("scp scripts/watch4mount.sh 10.0.1.30:/home/delphix/watch4mount.sh");
+   system("ssh -o LogLevel=ERROR 10.0.1.30 \"chmod 755 /home/delphix/watch4mount.sh\"");
    printf("Enter to return to main menu\n");
    getchar();
 }
@@ -289,7 +313,7 @@ void list_menu_options()
    printf("j: Option J\n");
    printf("k: Option K\n");
    printf("z: Save and quit\n");
-   printf("\n\nPlease enter a choice (a, b, c, d, e, f, g, h, or z) ---> ");
+   printf("\n\nPlease enter a choice (a, b, c, d, e, f, g, h, j, k or z) ---> ");
 }
 
 void process_menu()
@@ -321,6 +345,15 @@ void process_menu()
             break;
          case 'g':
             process_option_g();
+            break;
+         case 'h':
+            process_option_h();
+            break;
+         case 'j':
+            process_option_j();
+            break;
+         case 'k':
+            process_option_k();
             break;
          case 'z':
             break;
