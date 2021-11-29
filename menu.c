@@ -46,13 +46,13 @@ eot\n\
 
 #define SHELLSCRIPT4 "\
 col name format a50\n\
-col value format a60\n\
+col value format a40\n\
 col name_val format a90\n\
 col tablespace_name format a20\n\
 col file_name format a45\n\
 col status format a15\n\
 col member format a45\n\
-col type format a8\n\
+col type format a20\n\
 col status format a10\n\
 col instance_name format a10\n\
 col host_name format a10\n\
@@ -61,7 +61,7 @@ col database_status format a10\n\
 col version format a10\n\
 col number_of_files format 9,999\n\
 set pagesize 500\n\
-set linesize 90\n\
+set linesize 100\n\
 set termout on\n\
 set feedback off\n\
 col value format 9,999,999,999\n\n\
@@ -105,6 +105,7 @@ set linesize 100\n\
 set echo off\n\
 set feedback off\n\
 set wrap on\n\
+col owner format a30\n\
 col tablespace_name format a15\n\
 col file_name format a75\n\
 select distinct tablespace_name, file_name from dba_data_files order by 1;\n\
