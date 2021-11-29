@@ -364,7 +364,7 @@ void process_option_h()
    system("scp scripts/query.sql 10.0.1.30:/home/delphix/query.sql");
    system("scp scripts/query.sh 10.0.1.30:/home/delphix/query.sh");
    system("ssh -o LogLevel=ERROR 10.0.1.30 \"chmod 755 /home/delphix/query.sh\"");
-   system("scp scripts/query.sh 10.0.1.30:/home/delphix/action.sh");
+   system("scp scripts/action.sh 10.0.1.30:/home/delphix/action.sh");
    system("ssh -o LogLevel=ERROR 10.0.1.30 \"chmod 755 /home/delphix/action.sh\"");
    printf("Enter to return to main menu\n");
    getchar();
