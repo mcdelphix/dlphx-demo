@@ -152,12 +152,9 @@ exit\n\
 #define SHELLSCRIPT8 "\
 #!/bin/sh\n\n\
 echo \"ORACLE_SID=orasrc1 voradev1 vora1 voramsk1 voraqa1\"\n\
-export ORAENV_ASK=NO\n\
 export ORACLE_HOME=/u01/app/oracle/product/18.0.0/dbhome_1\n\
 export PATH=$PATH:$ORACLE_HOME/bin\n\
-# . oraenv\n\
-export ORAENV_ASK=YES\n\
-sqlplus delphixdb/delphixdb as sysdba @query.sql\n\
+sqlplus delphixdb/delphixdb @query.sql\n\
 "
 
 const char *script1 = "#!/bin/bash\n\n\
