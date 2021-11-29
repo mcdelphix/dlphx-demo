@@ -99,6 +99,22 @@ select 'Total System Global Area :' hd1, sum(value) sgatot, 'bytes' hd2 from  v$
 exit\n\
 "
 
+#define SHELLSCRIPT5 "\
+set pagesize 100\n\
+set linesize 100\n\
+set echo off\n\
+set feedback off\n\
+set wrap on\n\
+col tablespace_name format a15\n\
+col file_name format a75\n\
+select distinct tablespace_name, file_name from dba_data_files order by 1;\n\
+select owner,count(*) from dba_tables group by owner order by 1;\n\
+select dbid, name, open_mode from v$database;\n\
+select sum(bytes)/(1024*1024*1024) \"dbSize (GB)\" from dba_data_files;\n\
+select * from v$instance;\n\
+exit\n\
+"
+
 const char *script1 = "#!/bin/bash\n\n\
 [ $# -ne $numparms ] && usage\n\n\
 oracleSID=$1\n\
@@ -149,6 +165,7 @@ void process_option_a()
    create_file("scripts/x.sh", SHELLSCRIPT3);
    create_file("scripts/count.sh", SHELLSCRIPT1);
    create_file("scripts/verifyDB.sh", SHELLSCRIPT2);
+   create_file("scripts/verifyDB.sql", SHELLSCRIPT5);
    create_file("scripts/orainfo.sql", SHELLSCRIPT4);
 
    printf("Hello world\n");
@@ -220,6 +237,8 @@ void process_option_g()
    system("clear");
    printf("You have selected option G - prepare Oracle source\n");
    system("scp scripts/verifyDB.sql 10.0.1.20:/home/delphix/verifyDB.sql");
+   system("scp scripts/verifyDB.sh 10.0.1.20:/home/delphix/verifyDB.sh");
+   system("ssh -o LogLevel=ERROR 10.0.1.20 \"chmod 755 /home/delphix/verifyDB.sh\"");
    system("scp scripts/orainfo.sql 10.0.1.20:/home/delphix/orainfo.sql");
    printf("Enter to return to main menu\n");
    getchar();
@@ -230,6 +249,8 @@ void process_option_h()
    system("clear");
    printf("You have selected option H - prepare Oracle target\n");
    system("scp scripts/verifyDB.sql 10.0.1.30:/home/delphix/verifyDB.sql");
+   system("scp scripts/verifyDB.sh 10.0.1.30:/home/delphix/verifyDB.sh");
+   system("ssh -o LogLevel=ERROR 10.0.1.30 \"chmod 755 /home/delphix/verifyDB.sh\"");
    system("scp scripts/orainfo.sql 10.0.1.30:/home/delphix/orainfo.sql");
    printf("Enter to return to main menu\n");
    getchar();
