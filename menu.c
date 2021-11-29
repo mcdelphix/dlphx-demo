@@ -167,7 +167,7 @@ sqlplus delphixdb/delphixdb @query.sql\n\
 "
 
 /* action.sh */
-#define SHELLSCRIPT8 "\
+#define SHELLSCRIPT9 "\
 #!/bin/sh\n\n\
 list_rows()\n\
 {\n\
@@ -212,8 +212,11 @@ commit\n\
 exit\n\
 EOF\n\
 }\n\n\
+# initTransTAB\n\
+# ins_rows\n\
+# list_rows\n\
+# cleanTransTAB\n\
 "
-
 
 const char *script1 = "#!/bin/bash\n\n\
 [ $# -ne $numparms ] && usage\n\n\
@@ -270,6 +273,7 @@ void process_option_a()
    create_file("scripts/watch4mount.sh", SHELLSCRIPT6);
    create_file("scripts/query.sql", SHELLSCRIPT7);
    create_file("scripts/query.sh", SHELLSCRIPT8);
+   create_file("scripts/action.sh", SHELLSCRIPT9);
 
    printf("Hello world\n");
 
@@ -360,6 +364,8 @@ void process_option_h()
    system("scp scripts/query.sql 10.0.1.30:/home/delphix/query.sql");
    system("scp scripts/query.sh 10.0.1.30:/home/delphix/query.sh");
    system("ssh -o LogLevel=ERROR 10.0.1.30 \"chmod 755 /home/delphix/query.sh\"");
+   system("scp scripts/query.sh 10.0.1.30:/home/delphix/action.sh");
+   system("ssh -o LogLevel=ERROR 10.0.1.30 \"chmod 755 /home/delphix/action.sh\"");
    printf("Enter to return to main menu\n");
    getchar();
 }
