@@ -6,8 +6,24 @@ function DisplayMenu {
 	Write-Host "~~~~~~~~~~~~~~~~~~ Menu Title ~~~~~~~~~~~~~~~~~~" -ForegroundColor Cyan
 	Write-Host "  D: Restoring Database "
 	Write-Host "  L: Restoring Transaction Logs "
+	Write-Host "  V: View Delphix Logs "
     Write-Host "  Q: Quit "
 	Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" -ForegroundColor Magenta
+}
+
+function ViewLogs {
+    param (
+        [Parameter()] [string] $DbName
+        )
+
+    cls
+
+	Write-Host "  View Delphix Logs for $DbName "  -ForegroundColor Cyan
+	Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" -ForegroundColor Magenta
+
+    $logFile='C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\logs\$databaseName\debug.log'
+
+    gc $logFile -wait
 }
 
 function RestoreDb {
@@ -78,12 +94,13 @@ while ($answer -ne 'Q') {
         'Q' { exit }
         'D' { RestoreDb $DbName }
         'L' { RestoreLog $DbName }
+        'V' { ViewLogs $DbName }
         Default { Write-Output "Invalid selection!! " }
     }
     Write-Host " "
 	## Read-Host -Prompt "Press any key to continue or CTRL+C to quit" 
 	DisplayMenu
-    $answer = (Read-Host "Please make a selection (Q, D, L").ToUpper()
+    $answer = (Read-Host "Please make a selection (Q, D, L, V").ToUpper()
 }
 
 
