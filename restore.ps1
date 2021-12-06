@@ -10,7 +10,7 @@ $standbyFile='C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discove
 $restoreDatabase = @"
 USE master
 GO
-RESTORE DATABASE [Empdb_Stage] FROM DISK = N'$$backupFile' WITH FILE = 1,
+RESTORE DATABASE [Empdb_Stage] FROM DISK = N'$backupFile' WITH FILE = 1,
 MOVE N'$origDbName' TO N'$databaseFile',
 MOVE N'$origDbLog' TO N'$databaseLog',
 STANDBY = N'$standbyFile', NOUNLOAD, STATS = 5
