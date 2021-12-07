@@ -20,8 +20,8 @@ function ViewLogs {
 
 	Write-Host "  View Delphix Logs for $DbName "  -ForegroundColor Cyan
 	Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" -ForegroundColor Magenta
-    $databaseName="$DbName_Stage"
-    $logFile="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\logs\$databaseName\debug.log"
+    $databaseName=$DbName+"_Stage"
+    $logFile="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\logs\"+$databaseName+"\debug.log"
 
     gc $logFile -wait
 }
@@ -68,9 +68,9 @@ function RestoreLog {
 	Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" -ForegroundColor Magenta
   
     $SqlInstance="WIN2016TARGETA"
-    $trnFile="C:\Backups\$DbName.trn"
-    $databaseName="$DbName_Stage"
-    $standby2File="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\$DbName_Stage\Standby2"
+    $trnFile="C:\Backups\"+$DbName+".trn"
+    $databaseName=$DbName+"_Stage"
+    $standby2File="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\"+$DbName+"_Stage\Standby2"
 
 $restoreDatabase = @"
 USE master
