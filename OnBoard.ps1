@@ -21,7 +21,7 @@ function ViewLogs {
 	Write-Host "  View Delphix Logs for $DbName "  -ForegroundColor Cyan
 	Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" -ForegroundColor Magenta
     $databaseName="$DbName_Stage"
-    $logFile='C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\logs\$databaseName\debug.log'
+    $logFile="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\logs\$databaseName\debug.log"
 
     gc $logFile -wait
 }
@@ -41,9 +41,9 @@ function RestoreDb {
     $origDbName=$DbName
     $origDbLog="$DbName_log"
     $databaseName="$DbName_Stage"
-    $databaseFile='C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\$databaseName\$databaseName.mdf'
-    $databaseLog='C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\$databaseName\$databaseName.ldf'
-    $standbyFile='C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\$databaseName\Standby'
+    $databaseFile="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\$databaseName\$databaseName.mdf"
+    $databaseLog="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\$databaseName\$databaseName.ldf"
+    $standbyFile="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\$databaseName\Standby"
 
     $restoreDatabase = @"
 USE master
@@ -70,7 +70,7 @@ function RestoreLog {
     $SqlInstance="WIN2016TARGETA"
     $trnFile="C:\Backups\$DbName.trn"
     $databaseName="$DbName_Stage"
-    $standby2File='C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\$DbName_Stage\Standby2'
+    $standby2File="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\$DbName_Stage\Standby2"
 
 $restoreDatabase = @"
 USE master
@@ -86,7 +86,7 @@ GO
 $DbName = Read-Host "Enter the name of the SQL database (EmpDb): "
 
 DisplayMenu
-$answer = (Read-Host "Please make a selection (Q, D, L").ToUpper()
+$answer = (Read-Host "Please make a selection (Q, D, L) ").ToUpper()
 
 while ($answer -ne 'Q') {
     switch ($answer)
@@ -95,12 +95,12 @@ while ($answer -ne 'Q') {
         'D' { RestoreDb $DbName }
         'L' { RestoreLog $DbName }
         'V' { ViewLogs $DbName }
-        Default { Write-Output "Invalid selection!! " }
+        Default { Write-Output "Invalid selection !! " }
     }
     Write-Host " "
 	## Read-Host -Prompt "Press any key to continue or CTRL+C to quit" 
 	DisplayMenu
-    $answer = (Read-Host "Please make a selection (Q, D, L, V").ToUpper()
+    $answer = (Read-Host "Please make a selection (Q, D, L, V) ").ToUpper()
 }
 
 
