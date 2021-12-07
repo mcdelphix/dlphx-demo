@@ -18,11 +18,13 @@ function ViewLogs {
 
     cls
 
-	Write-Host "  View Delphix Logs for $DbName "  -ForegroundColor Cyan
-	Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" -ForegroundColor Magenta
+    Write-Host "  View Delphix Logs for $DbName "  -ForegroundColor Cyan
+    Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" -ForegroundColor Magenta
     $databaseName=$DbName+"_Stage"
     $logFile="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\logs\"+$databaseName+"\debug.log"
 
+    Write-Host "$logFile"
+    $wait2 = Read-Host "Press any key to begin viewing the above log. "
     gc $logFile -wait
 }
 
@@ -67,8 +69,8 @@ function RestoreLog {
 )
 
     cls
-	Write-Host "  Restore Log for database $DbName " -ForegroundColor Cyan
-	Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" -ForegroundColor Magenta
+    Write-Host "  Restore Log for database $DbName " -ForegroundColor Cyan
+    Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" -ForegroundColor Magenta
   
     $SqlInstance="WIN2016TARGETA"
     $trnFile="C:\Backups\"+$DbName+".trn"
@@ -104,8 +106,8 @@ while ($answer -ne 'Q') {
         Default { Write-Output "Invalid selection !! " }
     }
     Write-Host " "
-	## Read-Host -Prompt "Press any key to continue or CTRL+C to quit" 
-	DisplayMenu
+    ## Read-Host -Prompt "Press any key to continue or CTRL+C to quit" 
+    DisplayMenu
     $answer = (Read-Host "Please make a selection (Q, D, L, V) ").ToUpper()
 }
 
