@@ -37,13 +37,13 @@ function RestoreDb {
 	Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" -ForegroundColor Magenta
 
     $SqlInstance="WIN2016TARGETA"
-    $backupFile="C:\Backups\$DbName.bak"
+    $backupFile="C:\Backups\"+$DbName+".bak"
     $origDbName=$DbName
-    $origDbLog="$DbName_log"
-    $databaseName="$DbName_Stage"
-    $databaseFile="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\$databaseName\$databaseName.mdf"
-    $databaseLog="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\$databaseName\$databaseName.ldf"
-    $standbyFile="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\$databaseName\Standby"
+    $origDbLog=$DbName+"_log"
+    $databaseName=$DbName+"_Stage"
+    $databaseFile="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\"+$databaseName+"\$databaseName.mdf"
+    $databaseLog="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\"+$databaseName+"\$databaseName.ldf"
+    $standbyFile="C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\mnt\"+$databaseName+"\Standby"
 
     $restoreDatabase = @"
 USE master
