@@ -55,6 +55,9 @@ STANDBY = N'$standbyFile', NOUNLOAD, STATS = 5
 GO
 "@
 
+    Write-Host "$restoreDatabase"
+    $wait2 = Read-Host "Press any key to begin restoring the $DbName database. "
+
     Invoke-Sqlcmd -ServerInstance $SqlInstance -Query $restoreDatabase
 }
 
@@ -79,6 +82,9 @@ RESTORE LOG [$databaseName] FROM DISK = N'$trnFile' WITH
 STANDBY = N'$standby2File', NOUNLOAD, STATS = 10
 GO
 "@
+
+    Write-Host "$restoreDatabase"
+    $wait2 = Read-Host "Press any key to begin restoring the SQL TLOGs. "
 
     Invoke-Sqlcmd -ServerInstance $SqlInstance -Query $restoreDatabase
 }
