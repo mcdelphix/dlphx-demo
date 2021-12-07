@@ -20,7 +20,7 @@ function ViewLogs {
 
 	Write-Host "  View Delphix Logs for $DbName "  -ForegroundColor Cyan
 	Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" -ForegroundColor Magenta
-
+    $databaseName="$DbName_Stage"
     $logFile='C:\Program Files\Delphix\DelphixConnector\Sqlserver Manual Discovery\logs\$databaseName\debug.log'
 
     gc $logFile -wait
